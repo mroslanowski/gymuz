@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_home"
+        android:title="Home"
+        android:icon="@drawable/home_48px"/>
+
+    <item
+        android:id="@+id/bottom_qr_code"
+        android:title="QR Code"
+        android:icon="@drawable/qr_code_2_48px"/>
+
+    <item
+        android:id="@+id/bottom_create_plan"
+        android:title="Create Plan"
+        android:icon="@drawable/add"/>
+
+    <item
+        android:id="@+id/bottom_plan"
+        android:title="Plan"
+        android:icon="@drawable/exercise_48px"/>
+
+    <item
+        android:id="@+id/bottom_account"
+        android:title="Account"
+        android:icon="@drawable/account"/>
+
+
+</menu>

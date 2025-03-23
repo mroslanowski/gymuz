@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_gym_map"
+            android:icon="@drawable/public_48px"
+            android:title="Gym Map" />
+
+        <item
+            android:id="@+id/nav_theme"
+            android:icon="@drawable/routine_48px"
+            android:title="Theme" />
+
+        <item
+            android:id="@+id/nav_pdf_generator"
+            android:icon="@drawable/picture_as_pdf_48px"
+            android:title="PDF Generator" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings_48px"
+            android:title="Settings" />
+
+    </group>
+    <item
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout_48px"
+                android:title="Logout"/>
+        </menu>
+    </item>
+</menu>
