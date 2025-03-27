@@ -2,7 +2,8 @@
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-}
+        id("kotlin-kapt")
+    }
 
 android {
     namespace = "com.example.gymuz"
@@ -41,10 +42,14 @@ android {
 }
 
 dependencies {
-    val room_version = "2.6.1"
 
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+
+    val room_version = "2.5.2" // Use the latest stable version
+
+    implementation(libs.androidx.room.runtime.v252)  // Use parentheses for functions
+    annotationProcessor (libs.androidx.room.compiler.v252)
+    kapt("androidx.room:room-compiler:$room_version")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

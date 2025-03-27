@@ -17,6 +17,7 @@
         android:src="@drawable/aklogowhite" />
 
     <TextView
+        android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Average GymUZApp Enjoyer"
@@ -24,6 +25,7 @@
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/emailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="GymUZ@uz.zgora.pl"
