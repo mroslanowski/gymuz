@@ -22,9 +22,7 @@
         android:textSize="30dp"
         android:textColor="@color/main_color"
         android:gravity="center"
-        android:textStyle="bold"
-
-        />
+        android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etEmail"

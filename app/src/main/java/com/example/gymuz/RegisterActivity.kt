@@ -42,7 +42,6 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             lifecycleScope.launch {
-                // Sprawdzanie, czy użytkownik już istnieje w bazie
                 val existingUser = withContext(Dispatchers.IO) {
                     userDao.getUserByEmail(email)
                 }
@@ -50,7 +49,6 @@ class RegisterActivity : AppCompatActivity() {
                 if (existingUser != null) {
                     Toast.makeText(this@RegisterActivity, "Email już istnieje", Toast.LENGTH_SHORT).show()
                 } else {
-                    // Dodawanie nowego użytkownika do bazy
                     withContext(Dispatchers.IO) {
                         userDao.insertUser(User(name = name, email = email, password = password))
                     }
