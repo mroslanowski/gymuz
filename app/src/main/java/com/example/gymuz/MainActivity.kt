@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_gym_map -> replaceFragment(Gym_Map())
-            R.id.nav_theme -> replaceFragment(Theme())
             R.id.nav_pdf_generator -> replaceFragment(PDF_Generator())
             R.id.nav_settings -> replaceFragment(Settings())
             R.id.nav_logout -> logoutUser()

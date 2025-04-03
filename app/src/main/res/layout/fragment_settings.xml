@@ -1,18 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Settings">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="top|center">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings Fragment"
+        android:text="Settings"
         android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/main_color"/>
+        android:textColor="@color/main_color"
+        android:textStyle="bold" />
 
-</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:elevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:id="@+id/hintDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dark Mode"
+                android:textSize="20sp"
+                />
+
+            <Switch
+                android:id="@+id/switch3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:ignore="RtlHardcoded,UseSwitchCompatOrMaterialXml" />
+
+
+            <TextView
+                android:id="@+id/hintLight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Light Mode"
+                android:textSize="20sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:id="@+id/hintEnglish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="English"
+                android:textSize="20sp"
+                />
+
+            <Switch
+                android:id="@+id/switch4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:ignore="RtlHardcoded,UseSwitchCompatOrMaterialXml" />
+
+
+            <TextView
+                android:id="@+id/hintPolish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Polish"
+                android:textSize="20sp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

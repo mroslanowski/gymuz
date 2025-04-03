@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +16,7 @@ import com.example.gymuz.database.UserDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.core.content.edit
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -53,8 +56,12 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 if (user != null && user.password == password) {
-                    // Jeśli dane logowania są poprawne, zapisz status zalogowania w SharedPreferences
-                    sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+                    // Jeśli dane logowania są poprawne, zapisz status zalogowania i email w SharedPreferences
+                    sharedPreferences.edit {
+                        putBoolean("isLoggedIn", true)
+                        putString("user_email", email)
+                        apply()
+                    }
 
                     // Przejście do głównej aktywności
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))

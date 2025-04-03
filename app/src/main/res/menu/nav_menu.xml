@@ -12,11 +12,6 @@
             android:title="Gym Map" />
 
         <item
-            android:id="@+id/nav_theme"
-            android:icon="@drawable/routine_48px"
-            android:title="Theme" />
-
-        <item
             android:id="@+id/nav_pdf_generator"
             android:icon="@drawable/picture_as_pdf_48px"
             android:title="PDF Generator" />
