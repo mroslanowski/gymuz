@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
@@ -31,7 +30,7 @@ import org.maplibre.android.style.layers.SymbolLayer
 import org.maplibre.android.style.sources.GeoJsonSource
 import android.graphics.PointF // Potrzebne dla queryRenderedFeatures
 
-class Gym_Map : Fragment(), OnMapReadyCallback { // <-- Implementacja OnMapReadyCallback
+class GymMap : Fragment(), OnMapReadyCallback { // <-- Implementacja OnMapReadyCallback
 
     // Użyj ViewBinding dla bezpiecznego dostępu do widoków
     private var _binding: FragmentGymMapBinding? = null

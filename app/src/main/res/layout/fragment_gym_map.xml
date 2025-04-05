@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Gym_Map">
+    tools:context=".GymMap">
 
     <!-- TODO: Update blank fragment layout -->
     <org.maplibre.android.maps.MapView
