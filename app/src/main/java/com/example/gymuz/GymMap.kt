@@ -1,199 +1,101 @@
-package com.example.gymuz // Upewnij się, że pakiet jest poprawny
+package com.example.gymuz
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
-import com.example.gymuz.databinding.FragmentGymMapBinding // Importuj ViewBinding (zalecane)
-import com.google.gson.JsonObject
-import com.mapbox.geojson.Feature
-import com.mapbox.geojson.FeatureCollection
-import com.mapbox.geojson.Point
-import org.maplibre.android.MapLibre
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLng
-import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.OnMapReadyCallback
 import org.maplibre.android.maps.Style
-import org.maplibre.android.style.layers.PropertyFactory
-import org.maplibre.android.style.layers.SymbolLayer
-import org.maplibre.android.style.sources.GeoJsonSource
-import android.graphics.PointF // Potrzebne dla queryRenderedFeatures
+import org.maplibre.android.annotations.MarkerOptions
 
-class GymMap : Fragment(), OnMapReadyCallback { // <-- Implementacja OnMapReadyCallback
+class GymMap : Fragment(), OnMapReadyCallback {
 
-    // Użyj ViewBinding dla bezpiecznego dostępu do widoków
-    private var _binding: FragmentGymMapBinding? = null
-    private val binding get() = _binding!! // Ta właściwość jest ważna tylko między onCreateView a onDestroyView.
+    private var mapView: MapView? = null
+    private var maplibreMap: MapLibreMap? = null
 
-    private var mapView: MapView? = null // Zmienione na var i nullable
-    private var maplibreMap: MapLibreMap? = null // Zmienione na var i nullable
+    data class GymLocation(val name: String, val lat: Double, val lon: Double)
 
-    // Stałe dla ID źródeł, warstw i ikon
-    private companion object {
-        const val GYM_SOURCE_ID = "gym-source"
-        const val GYM_LAYER_ID = "gym-layer"
-        const val GYM_ICON_ID = "gym-icon"
-    }
-
-    // Lista przechowująca dane siłowni
-    private val gymFeatures = mutableListOf<Feature>()
-
-    // --- Cykl życia Fragmentu ---
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Inicjalizacja MapLibre (ważne, by zrobić to wcześnie)
-        // Używamy `requireContext()` bo w onCreate Fragment jest już przyłączony do Contextu
-        MapLibre.getInstance(requireContext(), null)
-
-        // Przygotuj dane siłowni (w realnej aplikacji z API/bazy)
-        prepareGymData()
-    }
+    private val zielonaGoraGyms = listOf(
+        GymLocation("Funfit II Makowa 14", 51.90641432210927, 15.507526632656969),
+        GymLocation("8K Centrum Sportu", 51.92156663931992, 15.512902094031643),
+        GymLocation("Panteon Gym II", 51.92686078083327, 15.508363349388388),
+        GymLocation("Alpha Gym", 51.94016221758262, 15.467922321526668),
+        GymLocation("Fitness Park", 51.93335822592118, 15.48076263412257),
+        GymLocation("Siłownia zewnętrzna przy VI Liceum", 51.92773204317605, 15.486752037127602),
+        GymLocation("Siłownia zewnętrzna na Piast Polanie", 51.92496541016539, 15.488144865894736),
+        GymLocation("Street Workout park", 51.92564631606819, 15.492760436026094),
+        GymLocation("Akademia Ruchu nessfit Ewa Skorupka", 51.930647137137036, 15.493801792804561),
+        GymLocation("JUST FIT", 51.92897769077887, 15.496235923855648),
+        GymLocation("Funfit II Moniuszki 16", 51.934078324775, 15.500506751796554),
+        GymLocation("Funfit II Pod Topolami", 51.941499168663796, 15.506633512946898),
+        GymLocation("Siłownia NIKOGYM", 51.942384961366, 15.507575074868425),
+        GymLocation("Yama Studio Treningu Personalnego", 51.93296396723015, 15.50905376910515),
+        GymLocation("Natafitstudio", 51.932899519384115, 15.506809199901518),
+        GymLocation("SALUS Park", 51.9339383608279, 15.507074392182906),
+        GymLocation("Fabryka Formy", 51.93516112436158, 15.510169436355115),
+        GymLocation("BodyRoom EMS", 51.94307056898072, 15.513965306798877),
+        GymLocation("Panteon Gym", 51.933714391477764, 15.551680483966356),
+        GymLocation("Funfit II Wrocławska 17", 51.93498419339352, 15.513137859761153),
+        GymLocation("ABC treningu", 51.935981908457876, 15.525269844148816),
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        // Użyj ViewBinding do inflacji layoutu
-        _binding = FragmentGymMapBinding.inflate(inflater, container, false)
-        // Pobierz referencję do MapView z bindingu
-        mapView = binding.mapView // Zakładając, że ID w XML to "mapView"
-        return binding.root
-    }
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_gym_map, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // Przekaż stan zapisu do MapView
-        mapView?.onCreate(savedInstanceState)
-        // Pobierz mapę asynchronicznie, `this` odnosi się do Fragmentu,
-        // który implementuje OnMapReadyCallback
-        mapView?.getMapAsync(this)
-    }
+        mapView = view.findViewById(R.id.mapView)
+        mapView?.onCreate(savedInstanceState) // Ważne dla cyklu życia MapView
+        mapView?.getMapAsync(this) // Pobierz mapę asynchronicznie
 
-    // --- Implementacja OnMapReadyCallback ---
+        return view
+    }
 
     override fun onMapReady(maplibreMap: MapLibreMap) {
-        this.maplibreMap = maplibreMap // Zapisz referencję do mapy
+        this.maplibreMap = maplibreMap
 
-        // Ustaw styl mapy (np. publiczny styl MapLibre)
-        val styleUrl = "https://demotiles.maplibre.org/style.json"
-        // Alternatywnie styl MapTiler (wymaga klucza API w string.xml lub BuildConfig)
-        // val styleUrl = "https://api.maptiler.com/maps/streets/style.json?key=TWOJ_KLUCZ_MAPTILER"
+        // Użyj predefiniowanego stylu "Streets" z MapTiler
+        // Dostępne są też inne, np. "Outdoor", "Basic", "Satellite", "Topo"
+        maplibreMap.setStyle(Style.getPredefinedStyle("Streets")) { style ->
+            // Styl załadowany - mapa jest gotowa
 
-        maplibreMap.setStyle(Style.Builder().fromUri(styleUrl)) { style ->
-            // Styl załadowany - czas dodać nasze dane
-
-            // 1. Ustaw początkową pozycję kamery (np. centrum Twojego miasta)
-            val initialPosition = CameraPosition.Builder()
-                .target(LatLng(52.2297, 21.0122)) // Warszawa jako przykład
-                .zoom(11.0)
+            // Ustaw pozycję kamery (Twój istniejący kod)
+            val zielonaGora = LatLng(51.9356, 15.5064)
+            val position = CameraPosition.Builder()
+                .target(zielonaGora)
+                .zoom(13.0) // Możesz dostosować zoom dla widoku ulic
                 .build()
-            maplibreMap.animateCamera(CameraUpdateFactory.newCameraPosition(initialPosition), 1000)
+            maplibreMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1500)
 
-            // 2. Dodaj ikonę dla siłowni do stylu
-            addGymIconToStyle(style)
+            
+            addGymMarkers(maplibreMap)
 
-            // 3. Dodaj źródło danych GeoJSON z siłowniami
-            addGymSourceToStyle(style)
-
-            // 4. Dodaj warstwę do wyświetlania ikon/nazw siłowni
-            addGymLayerToStyle(style)
-
-            // 5. (Opcjonalnie) Dodaj listener kliknięć na markery
-            addMapClickListener()
-
-            Toast.makeText(requireContext(), "Mapa gotowa!", Toast.LENGTH_SHORT).show()
+            // Opcjonalnie: Włącz lokalizację użytkownika (Twój istniejący kod)
+            // enableLocationComponent(style)
         }
     }
 
-    // --- Metody pomocnicze do konfiguracji mapy ---
-
-    private fun prepareGymData() {
-        // Przykładowe dane (zastąp prawdziwymi!)
-        addGym("Siłownia Centralna", 52.231, 21.010)
-        addGym("Fitness Klub Południe", 52.215, 21.025)
-        addGym("Power Gym Północ", 52.245, 20.990)
-    }
-
-    private fun addGym(name: String, latitude: Double, longitude: Double) {
-        val point = Point.fromLngLat(longitude, latitude)
-        val properties = JsonObject().apply {
-            addProperty("name", name)
-            // Możesz dodać więcej właściwości
-            // addProperty("address", "Ulica Przykładowa 1")
-        }
-        gymFeatures.add(Feature.fromGeometry(point, properties))
-    }
-
-    private fun addGymIconToStyle(style: Style) {
-        // Upewnij się, że masz drawable `ic_gym_pin` w res/drawable
-        getBitmapFromVectorDrawable(R.drawable.ic_gym_pin)?.let { iconBitmap ->
-            style.addImage(GYM_ICON_ID, iconBitmap)
-        } ?: run {
-            Log.e("Gym_Map", "Nie udało się załadować ikony siłowni (R.drawable.ic_gym_pin).")
-            // Można tu dodać fallback do domyślnej ikony, jeśli jest potrzebny
+    private fun addGymMarkers(map: MapLibreMap) {
+        zielonaGoraGyms.forEach { gym ->
+            map.addMarker(
+                MarkerOptions()
+                    .position(LatLng(gym.lat, gym.lon))
+                    .title(gym.name)
+                // .snippet("Dodatkowe informacje") // Opcjonalny opis
+            )
         }
     }
 
-    private fun addGymSourceToStyle(style: Style) {
-        val gymCollection = FeatureCollection.fromFeatures(gymFeatures)
-        val gymSource = GeoJsonSource(GYM_SOURCE_ID, gymCollection)
-        style.addSource(gymSource)
-    }
-
-    private fun addGymLayerToStyle(style: Style) {
-        val gymLayer = SymbolLayer(GYM_LAYER_ID, GYM_SOURCE_ID).withProperties(
-            // Ikona
-            PropertyFactory.iconImage(GYM_ICON_ID),
-            PropertyFactory.iconAllowOverlap(true),
-            PropertyFactory.iconIgnorePlacement(true),
-            PropertyFactory.iconSize(0.8f),
-            // Tekst (nazwa)
-            PropertyFactory.textField(PropertyFactory.get("name")), // Pobierz 'name' z GeoJSON
-            PropertyFactory.textSize(12f),
-            PropertyFactory.textColor(ContextCompat.getColor(requireContext(), android.R.color.black)),
-            PropertyFactory.textAnchor(PropertyFactory.TEXT_ANCHOR_TOP),
-            PropertyFactory.textOffset(arrayOf(0f, 1.0f)), // Odsuń tekst pod ikonę
-            PropertyFactory.textAllowOverlap(true),
-            PropertyFactory.textIgnorePlacement(true)
-        )
-        style.addLayer(gymLayer)
-    }
-
-    private fun addMapClickListener() {
-        maplibreMap?.addOnMapClickListener { point ->
-            val screenPoint: PointF = maplibreMap?.projection?.toScreenLocation(point) ?: return@addOnMapClickListener false
-            val features = maplibreMap?.queryRenderedFeatures(screenPoint, GYM_LAYER_ID)
-
-            if (features != null && features.isNotEmpty()) {
-                // Kliknięto na siłownię
-                val clickedFeature = features[0]
-                val gymName = clickedFeature.getStringProperty("name") ?: "Nieznana siłownia"
-                // val address = clickedFeature.getStringProperty("address")
-
-                Toast.makeText(requireContext(), "Kliknięto: $gymName", Toast.LENGTH_SHORT).show()
-
-                // Tutaj logika otwierania szczegółów itp.
-
-                true // Zdarzenie obsłużone
-            } else {
-                false // Zdarzenie nieobsłużone
-            }
-        }
-    }
-
-    // --- Konieczne metody cyklu życia dla MapView w Fragmncie ---
+    // --- Zarządzanie cyklem życia MapView ---
+    // To jest BARDZO WAŻNE, aby uniknąć wycieków pamięci i problemów
 
     override fun onStart() {
         super.onStart()
@@ -227,34 +129,46 @@ class GymMap : Fragment(), OnMapReadyCallback { // <-- Implementacja OnMapReadyC
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Ważne! Usuń listener kliknięć, gdy widok jest niszczony
-        // maplibreMap?.removeOnMapClickListener(this::handleMapClick) // Jeśli używasz referencji do metody
-        // Jeśli używasz lambdy jak powyżej, MapLibre powinien sobie poradzić, ale jawne usunięcie jest bezpieczniejsze
-        // jeśli masz bardziej złożone listenery.
-
-        mapView?.onDestroy() // Niszczymy MapView razem z widokiem fragmentu
-        maplibreMap = null    // Czyścimy referencję do mapy
-        mapView = null       // Czyścimy referencję do MapView
-        _binding = null      // Czyścimy binding - bardzo ważne!
+        mapView?.onDestroy()
+        // Zapobiegaj wyciekom pamięci
+        mapView = null
+        maplibreMap = null
     }
 
+    // Opcjonalnie: Włączanie warstwy lokalizacji użytkownika
+    /*
+    private fun enableLocationComponent(loadedMapStyle: Style) {
+        // Sprawdź, czy uprawnienia lokalizacyjne są przyznane
+        if (PermissionsManager.areLocationPermissionsGranted(requireContext())) {
 
-    // --- Metoda pomocnicza do konwersji Drawable na Bitmap ---
-    private fun getBitmapFromVectorDrawable(drawableId: Int): Bitmap? {
-        val drawable: Drawable = ContextCompat.getDrawable(requireContext(), drawableId) ?: return null
-        val wrappedDrawable = DrawableCompat.wrap(drawable).mutate()
+            val locationComponent = maplibreMap?.locationComponent
+            val locationComponentActivationOptions = LocationComponentActivationOptions
+                .builder(requireContext(), loadedMapStyle)
+                .useDefaultLocationEngine(true) // Użyj domyślnego silnika lokalizacji
+                .build()
 
-        val bitmap = Bitmap.createBitmap(
-            wrappedDrawable.intrinsicWidth,
-            wrappedDrawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        wrappedDrawable.setBounds(0, 0, canvas.width, canvas.height)
-        wrappedDrawable.draw(canvas)
-        return bitmap
+            locationComponent?.activateLocationComponent(locationComponentActivationOptions)
+
+            // Włącz widoczność komponentu lokalizacji (kropka/strzałka)
+            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+               // Tutaj poproś o uprawnienia, jeśli nie są przyznane
+               // ActivityCompat.requestPermissions(...)
+                return
+            }
+            locationComponent?.isLocationComponentEnabled = true
+
+            // Ustaw tryb kamery komponentu lokalizacji
+            // locationComponent?.cameraMode = CameraMode.TRACKING
+            // locationComponent?.renderMode = RenderMode.COMPASS
+
+        } else {
+             // Poproś użytkownika o uprawnienia (implementacja zależy od Ciebie)
+             // np. używając ActivityResultLauncher
+             // permissionsManager = PermissionsManager(this) // Potrzebny listener
+             // permissionsManager.requestLocationPermissions(activity)
+             println("Uprawnienia lokalizacyjne nie zostały przyznane.")
+        }
     }
-
-    // Usunąłem metody newInstance i parametry ARG_PARAM, bo nie były używane w kontekście mapy.
-    // Jeśli ich potrzebujesz do przekazywania danych do fragmentu, możesz je przywrócić.
+    */
+    // Dodaj obsługę odpowiedzi na prośbę o uprawnienia (onRequestPermissionsResult), jeśli implementujesz lokalizację.
 }
