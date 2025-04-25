@@ -44,11 +44,17 @@ android {
 dependencies {
 
 
-    val room_version = "2.5.2" // Use the latest stable version
+    val room_version = "2.6.1" // Use the latest stable version
 
+    implementation ("org.maplibre.gl:android-sdk:11.8.0")
+    implementation ("com.google.code.gson:gson:2.11.0")
+    implementation ("com.mapbox.maps:android:11.11.0")
     implementation(libs.androidx.room.runtime.v252)  // Use parentheses for functions
     annotationProcessor (libs.androidx.room.compiler.v252)
     kapt("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-runtime:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1") // ⬅ potrzebne dla korutyn
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

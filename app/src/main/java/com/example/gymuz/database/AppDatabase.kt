@@ -5,9 +5,21 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [User::class], version = 2, exportSchema = false)
+@Database(
+    entities = [
+        User::class,
+        WorkoutPlan::class,
+        WorkoutDay::class,
+        Exercise::class
+    ],
+    version = 3,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun workoutPlanDao(): WorkoutPlanDao
+    abstract fun workoutDayDao(): WorkoutDayDao
+    abstract fun exerciseDao(): ExerciseDao
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null
@@ -19,7 +31,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     DATABASE_NAME
-                ).build()
+                )
+                    .fallbackToDestructiveMigration() // W fazie rozwoju aplikacji, w produkcji powinno się zaimplementować migrację
+                    .build()
                 INSTANCE = instance
                 instance
             }

@@ -3,10 +3,8 @@ package com.example.gymuz
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -14,7 +12,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.gymuz.database.AppDatabase
-import androidx.appcompat.app.AppCompatDelegate
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -71,7 +68,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_gym_map -> replaceFragment(Gym_Map())
+            R.id.nav_gym_map -> replaceFragment(GymMap())
             R.id.nav_pdf_generator -> replaceFragment(PDF_Generator())
             R.id.nav_settings -> replaceFragment(Settings())
             R.id.nav_logout -> logoutUser()

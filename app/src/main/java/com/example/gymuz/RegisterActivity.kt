@@ -16,10 +16,14 @@ import kotlinx.coroutines.withContext
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var userDao: UserDao
+    private lateinit var userPreferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        // Inicjalizacja UserPreferences
+        userPreferences = UserPreferences(this)
 
         val nameEditText = findViewById<EditText>(R.id.etName)
         val emailEditText = findViewById<EditText>(R.id.etEmail)
@@ -50,8 +54,21 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.makeText(this@RegisterActivity, "Email już istnieje", Toast.LENGTH_SHORT).show()
                 } else {
                     withContext(Dispatchers.IO) {
+                        // Zapisanie użytkownika do bazy danych
                         userDao.insertUser(User(name = name, email = email, password = password))
+
+                        // Pobierz użytkownika po emailu aby uzyskać jego ID
+                        val newUser = userDao.getUserByEmail(email)
+                        if (newUser != null) {
+                            // Opcjonalnie zapisz ID użytkownika w preferencjach
+                            // userPreferences.saveUserId(newUser.id)
+                        }
                     }
+
+                    // Opcjonalnie możesz od razu zalogować użytkownika
+                    // userPreferences.setLoggedIn(true)
+                    // userPreferences.saveUserEmail(email)
+                    // userPreferences.saveUserId(userId)
 
                     Toast.makeText(this@RegisterActivity, "Rejestracja udana!", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))

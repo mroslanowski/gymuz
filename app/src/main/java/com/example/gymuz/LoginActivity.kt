@@ -1,13 +1,9 @@
 package com.example.gymuz
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -16,25 +12,24 @@ import com.example.gymuz.database.UserDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import androidx.core.content.edit
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var userPreferences: UserPreferences
     private lateinit var userDao: UserDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Inicjalizacja SharedPreferences
-        sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        // Inicjalizacja UserPreferences
+        userPreferences = UserPreferences(this)
 
         // Inicjalizacja bazy danych
         val db = AppDatabase.getDatabase(this)
         userDao = db.userDao()
 
         // Sprawdzenie, czy użytkownik jest już zalogowany
-        if (sharedPreferences.getBoolean("isLoggedIn", false)) {
+        if (userPreferences.isLoggedIn()) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -56,12 +51,10 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 if (user != null && user.password == password) {
-                    // Jeśli dane logowania są poprawne, zapisz status zalogowania i email w SharedPreferences
-                    sharedPreferences.edit {
-                        putBoolean("isLoggedIn", true)
-                        putString("user_email", email)
-                        apply()
-                    }
+                    // Jeśli dane logowania są poprawne, zapisz status zalogowania i email w UserPreferences
+                    userPreferences.setLoggedIn(true)
+                    userPreferences.saveUserEmail(email)
+                    userPreferences.saveUserId(user.id) // Zapisanie ID użytkownika
 
                     // Przejście do głównej aktywności
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))

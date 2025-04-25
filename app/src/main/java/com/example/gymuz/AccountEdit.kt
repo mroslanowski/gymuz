@@ -1,14 +1,18 @@
 package com.example.gymuz
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
-
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import com.example.gymuz.database.AppDatabase
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AccountEdit(
     private val currentName: String,
@@ -42,13 +46,44 @@ class AccountEdit(
         sexEditText.setText(currentSex)
 
         saveButton.setOnClickListener {
-            onSave(
-                nameEditText.text.toString(),
-                emailEditText.text.toString(),
-                passwordEditText.text.toString(),
-                sexEditText.text.toString()
-            )
-            dismiss()
+            val newName = nameEditText.text.toString()
+            val newEmail = emailEditText.text.toString()
+            val newPassword = passwordEditText.text.toString()
+            val newSex = sexEditText.text.toString()
+
+            // Walidacja wprowadzonych danych
+            if (newName.isEmpty() || newEmail.isEmpty() || newPassword.isEmpty()) {
+                Toast.makeText(context, "Wszystkie pola muszą być wypełnione", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Walidacja emaila
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(newEmail).matches()) {
+                Toast.makeText(context, "Nieprawidłowy format adresu email", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Sprawdzenie czy email się zmienił i czy nie jest już zajęty przez innego użytkownika
+            if (newEmail != currentEmail) {
+                lifecycleScope.launch {
+                    val userDao = AppDatabase.getDatabase(requireContext()).userDao()
+                    val existingUser = withContext(Dispatchers.IO) {
+                        userDao.getUserByEmail(newEmail)
+                    }
+
+                    if (existingUser != null && existingUser.email != currentEmail) {
+                        Toast.makeText(context, "Ten adres email jest już zajęty", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Zapisz zmiany i zamknij dialog
+                        onSave(newName, newEmail, newPassword, newSex)
+                        dismiss()
+                    }
+                }
+            } else {
+                // Jeśli email się nie zmienił, zapisz zmiany i zamknij dialog
+                onSave(newName, newEmail, newPassword, newSex)
+                dismiss()
+            }
         }
 
         return view
