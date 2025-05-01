@@ -13,12 +13,12 @@
     <item
         android:id="@+id/bottom_create_plan"
         android:title="Create Plan"
-        android:icon="@drawable/add"/>
+        android:icon="@drawable/exercise_48px"/>
 
     <item
-        android:id="@+id/bottom_plan"
-        android:title="Plan"
-        android:icon="@drawable/exercise_48px"/>
+        android:id="@+id/nav_gym_map"
+        android:icon="@drawable/public_48px"
+        android:title="Gym Map" />
 
     <item
         android:id="@+id/bottom_account"

@@ -75,7 +75,7 @@ class GymMap : Fragment(), OnMapReadyCallback {
                 .build()
             maplibreMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1500)
 
-            
+
             addGymMarkers(maplibreMap)
 
             // Opcjonalnie: Włącz lokalizację użytkownika (Twój istniejący kod)
