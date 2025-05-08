@@ -34,9 +34,8 @@
                 android:id="@+id/hintDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dark Mode"
-                android:textSize="20sp"
-                />
+                android:text="Light Mode"
+                android:textSize="20sp" />
 
             <Switch
                 android:id="@+id/switch3"
@@ -49,9 +48,8 @@
                 android:id="@+id/hintLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Light Mode"
-                android:textSize="20sp"
-                />
+                android:text="Dark Mode"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
