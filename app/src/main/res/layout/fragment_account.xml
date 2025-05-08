@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="top|center">
+    android:gravity="top|center"
+    android:background="?android:colorBackground">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -19,114 +20,118 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@android:color/white"
+        android:layout_margin="4dp"
+        android:background="?attr/colorSurface"
         android:elevation="8dp"
-        android:layout_margin="4dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <!-- Name field -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/hintName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name:"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
                 android:id="@+id/nameTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="name"
-                android:textSize="20sp"
                 android:textColor="@color/main_color"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- Email field -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/hintEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email:"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
                 android:id="@+id/emailTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="email"
-                android:textSize="20sp"
                 android:textColor="@color/main_color"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- Password field -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/hintPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Password:"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
                 android:id="@+id/passwordTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="********"
-                android:textSize="20sp"
                 android:textColor="@color/main_color"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <!-- Sex field -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/hintSex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sex:"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
                 android:id="@+id/sexTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="sex"
-                android:textSize="20sp"
                 android:textColor="@color/main_color"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
