@@ -8,16 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class Settings : Fragment() {
-    private lateinit var darkModeSwitch: Switch
+    private lateinit var darkModeSwitch: SwitchMaterial
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
-        darkModeSwitch = view.findViewById(R.id.switch3)
+        darkModeSwitch = view.findViewById(R.id.switch_dark_mode)
 
         // Wczytaj zapisane preferencje
         val sharedPrefs = requireActivity().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)

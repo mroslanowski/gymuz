@@ -1,34 +1,51 @@
 [versions]
-agp = "8.7.2"
-appcompatVersion = "1.6.1"
+agp = "8.7.3"
+android = "11.11.0"
+androidSdk = "11.8.0"
+androidxRoomRuntime = "2.6.1"
+appcompatVersion = "1.7.0"
 constraintlayout = "2.2.1"
-coreKtxVersion = "1.9.0"
+coreKtxVersion = "1.16.0"
+gson = "2.11.0"
 kotlin = "2.0.0"
-coreKtx = "1.10.1"
+coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-kotlinStdlib = "2.0.20"
-lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.04.01"
+kotlinStdlib = "2.1.10"
+lifecycleRuntimeKtx = "2.9.0"
+activityCompose = "1.10.1"
+composeBom = "2025.05.01"
 drawerlayout = "1.2.0"
 appcompat = "1.7.0"
 material = "1.12.0"
-materialVersion = "1.8.0"
-roomCompiler = "2.5.2"
-roomRuntime = "2.6.1"
-roomRuntimeVersion = "2.5.2"
+materialVersion = "1.12.0"
+roomCompiler = "2.7.1"
+roomCompilerVersion = "2.6.1"
+roomRuntime = "2.7.1"
+roomRuntimeVersion = "2.7.1"
 
 [libraries]
+#noinspection SimilarGradleDependency
+android = { module = "com.mapbox.maps:android", version.ref = "android" }
+android-sdk = { module = "org.maplibre.gl:android-sdk", version.ref = "androidSdk" }
 androidx-appcompat-v161 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+#noinspection SimilarGradleDependency
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-ktx-v190 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
+#noinspection SimilarGradleDependency
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+#noinspection SimilarGradleDependency
 androidx-room-compiler-v252 = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+#noinspection SimilarGradleDependency
+androidx-room-compiler-v261 = { module = "androidx.room:room-compiler", version.ref = "roomCompilerVersion" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCompilerVersion" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+#noinspection SimilarGradleDependency
 androidx-room-runtime-v252 = { module = "androidx.room:room-runtime", version.ref = "roomRuntimeVersion" }
+androidx-room-runtime-v261 = { module = "androidx.room:room-runtime", version.ref = "androidxRoomRuntime" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -43,9 +60,12 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-drawerlayout = { group = "androidx.drawerlayout", name = "drawerlayout", version.ref = "drawerlayout" }
+#noinspection SimilarGradleDependency
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlib" }
+#noinspection SimilarGradleDependency
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+#noinspection SimilarGradleDependency
 material-v180 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 
 [plugins]
