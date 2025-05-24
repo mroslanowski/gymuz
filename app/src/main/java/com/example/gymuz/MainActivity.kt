@@ -64,15 +64,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Home()).commit()
+                .replace(R.id.fragment_container, Create_Plan()).commit()
             navigationView.setCheckedItem(R.id.bottom_home)
         }
 
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.bottom_home -> replaceFragment(Home())
+                R.id.bottom_home -> replaceFragment(Create_Plan())
                 R.id.bottom_qr_code -> replaceFragment(QR_Code())
-                R.id.bottom_create_plan -> replaceFragment(Create_Plan())
+                R.id.bottom_create_plan -> replaceFragment(Plan())
                 R.id.nav_gym_map -> replaceFragment(GymMap())
                 R.id.bottom_account -> replaceFragment(Account())
             }
