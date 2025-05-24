@@ -7,12 +7,12 @@
 
 android {
     namespace = "com.example.gymuz"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.gymuz"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -44,16 +44,13 @@ android {
 dependencies {
 
 
-    val room_version = "2.6.1" // Use the latest stable version
-
-    implementation ("org.maplibre.gl:android-sdk:11.8.0")
-    implementation ("com.google.code.gson:gson:2.11.0")
-    implementation ("com.mapbox.maps:android:11.11.0")
-    implementation(libs.androidx.room.runtime.v252)  // Use parentheses for functions
-    annotationProcessor (libs.androidx.room.compiler.v252)
-    kapt("androidx.room:room-compiler:$room_version")
-    implementation ("androidx.room:room-runtime:2.6.1")
-    implementation ("androidx.room:room-ktx:2.6.1") // ⬅ potrzebne dla korutyn
+    implementation (libs.android.sdk)
+    implementation (libs.gson)
+    implementation (libs.android)
+    implementation(libs.androidx.room.runtime.v261)
+    implementation(libs.androidx.room.ktx)
+    //noinspection KaptUsageInsteadOfKsp
+    kapt(libs.androidx.room.compiler.v261)
 
 
     implementation(libs.androidx.core.ktx)

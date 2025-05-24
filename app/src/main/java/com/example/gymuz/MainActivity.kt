@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -22,7 +23,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -31,6 +31,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var userPreferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Wczytaj zapisany tryb przed super.onCreate()
+        val sharedPrefs = getSharedPreferences("AppSettings", MODE_PRIVATE)
+        val isDarkMode = sharedPrefs.getBoolean("dark_mode", false)
+
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -70,22 +79,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             true
         }
 
-        // Update header after activity creation
         updateNavigationHeader()
     }
 
-    // Updated method for header navigation using UserPreferences
     private fun updateNavigationHeader() {
         val headerView = navigationView.getHeaderView(0)
         val nameTextView = headerView.findViewById<TextView>(R.id.nameTextView)
         val emailTextView = headerView.findViewById<TextView>(R.id.emailTextView)
 
         if (userPreferences.isLoggedIn()) {
-            // Get user data
             val userId = userPreferences.getUserId()
 
             if (userId != -1) {
-                // Get data from database
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val user = db.userDao().getUserById(userId)
@@ -98,7 +103,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        // If error occurs, use backup data from UserPreferences
                         withContext(Dispatchers.Main) {
                             val email = userPreferences.getUserEmail() ?: "gymuz@uz.zgora.pl"
                             val name = userPreferences.getUserName() ?: "Użytkownik GymUZ"
@@ -109,7 +113,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     }
                 }
             } else {
-                // If no user ID, use email from UserPreferences
                 val email = userPreferences.getUserEmail() ?: "gymuz@uz.zgora.pl"
                 val name = userPreferences.getUserName() ?: "Użytkownik GymUZ"
 
@@ -117,7 +120,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 emailTextView.text = email
             }
         } else {
-            // If user is not logged in, show default data
             nameTextView.text = "Average GymUZApp Enjoyer"
             emailTextView.text = "GymUZ@uz.zgora.pl"
         }
@@ -139,12 +141,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    // Improved logout method using UserPreferences
     private fun logoutUser() {
-        // Clear all user data using UserPreferences
         userPreferences.clearUserData()
 
-        // Reset navigation header data
         val headerView = navigationView.getHeaderView(0)
         val nameTextView = headerView.findViewById<TextView>(R.id.nameTextView)
         val emailTextView = headerView.findViewById<TextView>(R.id.emailTextView)
@@ -152,20 +151,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nameTextView.text = "Average GymUZApp Enjoyer"
         emailTextView.text = "GymUZ@uz.zgora.pl"
 
-        // Info message
         Toast.makeText(this, "Wylogowano!", Toast.LENGTH_SHORT).show()
 
-        // Navigate to login screen
         val intent = Intent(this, LoginActivity::class.java)
-        // Clear task stack to prevent going back after logout
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-        finish() // Close MainActivity
+        finish()
     }
 
     override fun onResume() {
         super.onResume()
-        // Update header when returning to activity
         updateNavigationHeader()
     }
 

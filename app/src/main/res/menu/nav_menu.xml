@@ -2,27 +2,28 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn = "navigation_view">
+    tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-
         <item
             android:id="@+id/nav_pdf_generator"
             android:icon="@drawable/picture_as_pdf_48px"
+            android:iconTint="?attr/colorPrimary"
             android:title="PDF Generator" />
 
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings_48px"
+            android:iconTint="?attr/colorPrimary"
             android:title="Settings" />
-
     </group>
-    <item
-        android:title="">
+
+    <item android:title="">
         <menu>
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/logout_48px"
+                android:iconTint="?attr/colorPrimary"
                 android:title="Logout"/>
         </menu>
     </item>

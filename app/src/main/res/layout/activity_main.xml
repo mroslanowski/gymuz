@@ -50,8 +50,8 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu"
-        android:background="@color/white"
-        app:itemIconTint="@color/main_color"
-        app:itemTextColor="@color/main_color"/>
+        android:background="?android:attr/colorBackground"
+        app:itemIconTint="?attr/colorPrimary"
+        app:itemTextColor="?android:attr/textColorPrimary"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
