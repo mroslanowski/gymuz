@@ -43,7 +43,9 @@ android {
 
 dependencies {
 
-
+    implementation(libs.itext7.core)
+    implementation(libs.kernel)
+    implementation(libs.layout)
     implementation (libs.android.sdk)
     implementation (libs.gson)
     implementation (libs.android)
