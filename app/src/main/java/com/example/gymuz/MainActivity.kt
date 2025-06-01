@@ -71,9 +71,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bottom_home -> replaceFragment(Create_Plan())
-                R.id.bottom_qr_code -> replaceFragment(QR_Code())
                 R.id.bottom_create_plan -> replaceFragment(Plan())
                 R.id.nav_gym_map -> replaceFragment(GymMap())
+                R.id.bottom_progress -> replaceFragment(Progress()) // Nowy fragment
                 R.id.bottom_account -> replaceFragment(Account())
             }
             true

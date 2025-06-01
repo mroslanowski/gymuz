@@ -9,12 +9,12 @@ coreKtxVersion = "1.16.0"
 gson = "2.11.0"
 itext7Core = "7.2.5"
 kernel = "7.2.5"
-kotlin = "2.0.0"
+kotlin = "1.9.24"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-kotlinStdlib = "2.1.10"
+kotlinStdlib = "1.9.24"
 layout = "7.2.5"
 lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
@@ -23,10 +23,10 @@ drawerlayout = "1.2.0"
 appcompat = "1.7.0"
 material = "1.12.0"
 materialVersion = "1.12.0"
-roomCompiler = "2.7.1"
+roomCompiler = "2.6.1"
 roomCompilerVersion = "2.6.1"
-roomRuntime = "2.7.1"
-roomRuntimeVersion = "2.7.1"
+roomRuntime = "2.6.1"
+roomRuntimeVersion = "2.6.1"
 
 [libraries]
 #noinspection SimilarGradleDependency
@@ -77,5 +77,4 @@ material-v180 = { module = "com.google.android.material:material", version.ref =
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
+# Usunięto kotlin-compose plugin - nie istnieje w tej wersji Kotlin

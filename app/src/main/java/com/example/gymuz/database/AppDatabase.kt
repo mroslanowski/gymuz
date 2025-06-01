@@ -4,23 +4,20 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.gymuz.database.dao.ExerciseDao
-import com.example.gymuz.database.dao.UserDao
-import com.example.gymuz.database.dao.WorkoutDay
-import com.example.gymuz.database.dao.WorkoutDayDao
-import com.example.gymuz.database.dao.WorkoutPlanDao
-import com.example.gymuz.database.entity.Exercise
-import com.example.gymuz.database.entity.User
-import com.example.gymuz.database.entity.WorkoutPlan
+import com.example.gymuz.database.dao.*
+import com.example.gymuz.database.entity.*
 
 @Database(
     entities = [
         User::class,
         WorkoutPlan::class,
         WorkoutDay::class,
-        Exercise::class
+        Exercise::class,
+        WeightEntry::class,
+        ExerciseProgress::class,
+        ProgressPhoto::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -28,6 +25,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun workoutPlanDao(): WorkoutPlanDao
     abstract fun workoutDayDao(): WorkoutDayDao
     abstract fun exerciseDao(): ExerciseDao
+    abstract fun weightEntryDao(): WeightEntryDao
+    abstract fun exerciseProgressDao(): ExerciseProgressDao
+    abstract fun progressPhotoDao(): ProgressPhotoDao
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null

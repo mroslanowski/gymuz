@@ -1,9 +1,8 @@
-    plugins {
+plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-        id("kotlin-kapt")
-    }
+    id("kotlin-kapt")
+}
 
 android {
     namespace = "com.example.gymuz"
@@ -34,10 +33,17 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+        freeCompilerArgs += listOf(
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+        )
     }
     buildFeatures {
         compose = true
         viewBinding = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
 }
 
@@ -46,14 +52,13 @@ dependencies {
     implementation(libs.itext7.core)
     implementation(libs.kernel)
     implementation(libs.layout)
-    implementation (libs.android.sdk)
-    implementation (libs.gson)
-    implementation (libs.android)
+    implementation(libs.android.sdk)
+    implementation(libs.gson)
+    implementation(libs.android)
     implementation(libs.androidx.room.runtime.v261)
     implementation(libs.androidx.room.ktx)
     //noinspection KaptUsageInsteadOfKsp
     kapt(libs.androidx.room.compiler.v261)
-
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
