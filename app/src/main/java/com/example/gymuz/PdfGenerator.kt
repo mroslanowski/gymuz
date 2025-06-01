@@ -1,59 +1,149 @@
 package com.example.gymuz
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.example.gymuz.database.AppDatabase
+import com.example.gymuz.database.repository.WorkoutRepository
+import com.example.gymuz.login.UserPreferences
+import com.google.android.material.snackbar.Snackbar
+import com.itextpdf.kernel.pdf.PdfDocument
+import com.itextpdf.kernel.pdf.PdfWriter
+import com.itextpdf.layout.Document
+import com.itextpdf.layout.element.Paragraph
+import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PdfGenerator.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PdfGenerator : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var repository: WorkoutRepository
+    private lateinit var userPreferences: UserPreferences
+    private lateinit var btnGeneratePdf: Button
+    private val STORAGE_PERMISSION_CODE = 101
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pdf_generator1, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PDF_Generator.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PdfGenerator().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val db = AppDatabase.getDatabase(requireContext())
+        repository = WorkoutRepository(
+            db.workoutPlanDao(),
+            db.workoutDayDao(),
+            db.exerciseDao()
+        )
+        userPreferences = UserPreferences(requireContext())
+
+        btnGeneratePdf = view.findViewById(R.id.btnGeneratePdf)
+        btnGeneratePdf.setOnClickListener {
+            if (checkPermission()) {
+                generatePdf()
+            } else {
+                requestPermission()
             }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun generatePdf() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val userId = userPreferences.getUserId()
+                val plan = repository.getWorkoutPlanForUser(userId)
+                if (plan != null) {
+                    val fileName = "WorkoutPlan_${LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))}.pdf"
+                    val filePath = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName).absolutePath
+                    } else {
+                        "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)}/$fileName"
+                    }
+
+                    val file = File(filePath)
+                    file.parentFile?.mkdirs() // Create directories if they don't exist
+
+                    FileOutputStream(file).use { fos ->
+                        val pdfWriter = PdfWriter(fos)
+                        val pdfDocument = PdfDocument(pdfWriter)
+                        val document = Document(pdfDocument)
+
+                        document.add(Paragraph("Plan treningowy"))
+
+                        val workoutDays = repository.getWorkoutDays(plan.id)
+                        for (day in workoutDays) {
+                            document.add(Paragraph("\n${day.dayName}${day.customDayName?.let { " - $it" } ?: ""}"))
+
+                            val exercises = repository.getExercisesForDay(day.id)
+                            for (exercise in exercises) {
+                                document.add(Paragraph("• ${exercise.name}: ${exercise.sets} serie × ${exercise.reps} powtórzeń @ ${exercise.weight}kg"))
+                            }
+                        }
+
+                        document.close()
+                        pdfDocument.close()
+                        Snackbar.make(requireView(), "PDF wygenerowany: $fileName", Snackbar.LENGTH_LONG).show()
+                    }
+                } else {
+                    Snackbar.make(requireView(), "Nie znaleziono planu treningowego", Snackbar.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Snackbar.make(requireView(), "Błąd podczas generowania PDF: ${e.message}", Snackbar.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun checkPermission(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            true
+        } else {
+            val write = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            val read = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+            write == PackageManager.PERMISSION_GRANTED && read == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ),
+            STORAGE_PERMISSION_CODE
+        )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                generatePdf()
+            } else {
+                Snackbar.make(requireView(), "Wymagane uprawnienia do zapisu pliku", Snackbar.LENGTH_LONG).show()
+            }
+        }
     }
 }
