@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.gymuz.R
 import com.example.gymuz.database.entity.ProgressPhoto
 import java.io.File
@@ -35,18 +36,14 @@ class ProgressPhotoAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val photo = photos[position]
-
-        // Load image from file path
-        try {
-            val file = File(photo.photoPath)
-            if (file.exists()) {
-                // Here you would normally use an image loading library like Glide or Picasso
-                // For now, we'll use a placeholder
-                holder.ivPhoto.setImageResource(R.drawable.ic_fitness)
-            } else {
-                holder.ivPhoto.setImageResource(R.drawable.ic_fitness)
-            }
-        } catch (e: Exception) {
+        val file = File(photo.photoPath)
+        if (file.exists()) {
+            Glide.with(holder.ivPhoto.context)
+                .load(file)
+                .placeholder(R.drawable.ic_fitness)
+                .error(R.drawable.ic_fitness)
+                .into(holder.ivPhoto)
+        } else {
             holder.ivPhoto.setImageResource(R.drawable.ic_fitness)
         }
 

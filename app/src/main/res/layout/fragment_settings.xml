@@ -244,6 +244,19 @@
                             android:textColor="?attr/colorOnBackground"
                             android:fontFamily="sans-serif-medium" />
 
+                        <TextView
+                            android:id="@+id/tv_notification_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Notification Time: 08:00"
+                            android:textSize="16sp"
+                            android:textColor="?attr/colorOnBackground"
+                            android:layout_marginTop="8dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?attr/selectableItemBackground"
+                            android:padding="8dp" />
+
                     </LinearLayout>
 
                     <com.google.android.material.switchmaterial.SwitchMaterial

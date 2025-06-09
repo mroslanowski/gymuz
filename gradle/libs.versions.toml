@@ -27,6 +27,7 @@ roomCompiler = "2.6.1"
 roomCompilerVersion = "2.6.1"
 roomRuntime = "2.6.1"
 roomRuntimeVersion = "2.6.1"
+zxingAndroidEmbedded = "4.3.0"
 
 [libraries]
 #noinspection SimilarGradleDependency
@@ -73,6 +74,7 @@ layout = { module = "com.itextpdf:layout", version.ref = "layout" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 #noinspection SimilarGradleDependency
 material-v180 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
