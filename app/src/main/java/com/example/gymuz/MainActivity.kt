@@ -13,6 +13,12 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.gymuz.database.AppDatabase
+import com.example.gymuz.Create_Plan
+import com.example.gymuz.GymMap
+import com.example.gymuz.fragments.Plan
+import com.example.gymuz.Progress
+import com.example.gymuz.PdfGenerator
+import com.example.gymuz.Settings
 import com.example.gymuz.login.Account
 import com.example.gymuz.login.LoginActivity
 import com.example.gymuz.login.UserPreferences
@@ -31,7 +37,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var userPreferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Wczytaj zapisany tryb przed super.onCreate()
         val sharedPrefs = getSharedPreferences("AppSettings", MODE_PRIVATE)
         val isDarkMode = sharedPrefs.getBoolean("dark_mode", false)
 
@@ -43,10 +48,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize UserPreferences
         userPreferences = UserPreferences(this)
-
-        // Initialize AppDatabase
         db = AppDatabase.getDatabase(this)
 
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -73,7 +75,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.bottom_home -> replaceFragment(Create_Plan())
                 R.id.bottom_create_plan -> replaceFragment(Plan())
                 R.id.nav_gym_map -> replaceFragment(GymMap())
-                R.id.bottom_progress -> replaceFragment(Progress()) // Nowy fragment
+                R.id.bottom_progress -> replaceFragment(Progress())
                 R.id.bottom_account -> replaceFragment(Account())
             }
             true
@@ -165,11 +167,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            onBackPressedDispatcher.onBackPressed()
+            super.onBackPressed()
         }
     }
 }
