@@ -18,6 +18,7 @@ import java.util.*
 class Settings : Fragment() {
     private lateinit var darkModeSwitch: SwitchMaterial
     private lateinit var notificationSwitch: SwitchMaterial
+    private lateinit var languageSwitch: SwitchMaterial
     private lateinit var tvNotificationTime: TextView
 
     override fun onCreateView(
@@ -27,6 +28,7 @@ class Settings : Fragment() {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         darkModeSwitch = view.findViewById(R.id.switch_dark_mode)
         notificationSwitch = view.findViewById(R.id.switch_workout_reminders)
+        languageSwitch = view.findViewById(R.id.switch_language)
         tvNotificationTime = view.findViewById(R.id.tv_notification_time)
 
         val sharedPrefs = requireActivity().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
@@ -34,10 +36,12 @@ class Settings : Fragment() {
         val notificationsEnabled = sharedPrefs.getBoolean("notifications_enabled", false)
         val hour = sharedPrefs.getInt("notification_hour", 8)
         val minute = sharedPrefs.getInt("notification_minute", 0)
+        val currentLang = sharedPrefs.getString("app_language", "en")
 
         darkModeSwitch.isChecked = isDarkMode
         notificationSwitch.isChecked = notificationsEnabled
-        tvNotificationTime.text = "Notification Time: %02d:%02d".format(hour, minute)
+        languageSwitch.isChecked = currentLang == "pl"
+        tvNotificationTime.text = getString(R.string.notification_time_format, hour, minute)
 
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             sharedPrefs.edit().putBoolean("dark_mode", isChecked).apply()
@@ -56,24 +60,58 @@ class Settings : Fragment() {
             }
         }
 
+        languageSwitch.setOnCheckedChangeListener { _, isChecked ->
+            val langCode = if (isChecked) "pl" else "en"
+            sharedPrefs.edit().putString("app_language", langCode).apply()
+            setLocale(langCode)
+            requireActivity().recreate()
+        }
+
         tvNotificationTime.setOnClickListener {
-            val picker = TimePickerDialog(requireContext(), { _, h, m ->
-                tvNotificationTime.text = "Notification Time: %02d:%02d".format(h, m)
-                sharedPrefs.edit().putInt("notification_hour", h).putInt("notification_minute", m).apply()
-                if (notificationSwitch.isChecked) {
-                    scheduleNotification(h, m)
-                }
-            }, hour, minute, true)
-            picker.show()
+            showTimePickerDialog(hour, minute)
         }
 
         return view
     }
 
+    private fun showTimePickerDialog(currentHour: Int, currentMinute: Int) {
+        TimePickerDialog(
+            requireContext(),
+            { _, h, m ->
+                updateNotificationTime(h, m)
+            },
+            currentHour,
+            currentMinute,
+            true
+        ).show()
+    }
+
+    private fun updateNotificationTime(hour: Int, minute: Int) {
+        tvNotificationTime.text = getString(R.string.notification_time_format, hour, minute)
+        requireActivity().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+            .edit()
+            .putInt("notification_hour", hour)
+            .putInt("notification_minute", minute)
+            .apply()
+        if (notificationSwitch.isChecked) {
+            scheduleNotification(hour, minute)
+        }
+    }
+
+    private fun setLocale(language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = requireContext().resources.configuration
+        config.setLocale(locale)
+        requireContext().createConfigurationContext(config)
+        requireContext().resources.updateConfiguration(config, requireContext().resources.displayMetrics)
+    }
+
     private fun scheduleNotification(hour: Int, minute: Int) {
         val intent = Intent(requireContext(), NotificationReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
-            requireContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            requireContext(), 0, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         val calendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, hour)
@@ -94,7 +132,8 @@ class Settings : Fragment() {
     private fun cancelNotification() {
         val intent = Intent(requireContext(), NotificationReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
-            requireContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            requireContext(), 0, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.cancel(pendingIntent)

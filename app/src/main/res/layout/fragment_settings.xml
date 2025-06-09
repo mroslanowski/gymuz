@@ -33,11 +33,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Settings"
-                android:textSize="28sp"
-                android:textColor="?attr/colorOnBackground"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
+                android:text="@string/settings"
+            android:textSize="28sp"
+            android:textColor="?attr/colorOnBackground"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
 
         </LinearLayout>
 
@@ -59,12 +59,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Appearance"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnBackground"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="sans-serif-medium" />
+                    android:text="@string/appearance"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnBackground"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-medium" />
 
                 <!-- Dark Mode Switch -->
                 <LinearLayout
@@ -94,10 +94,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Dark Mode"
-                            android:textSize="16sp"
-                            android:textColor="?attr/colorOnBackground"
-                            android:fontFamily="sans-serif-medium" />
+                            android:text="@string/dark_mode"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnBackground"
+                        android:fontFamily="sans-serif-medium" />
 
                     </LinearLayout>
 
@@ -131,12 +131,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Language"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnBackground"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="sans-serif-medium" />
+                    android:text="@string/language"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnBackground"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-medium" />
 
                 <!-- Language Switch -->
                 <LinearLayout
@@ -166,10 +166,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Polish / English"
-                            android:textSize="16sp"
-                            android:textColor="?attr/colorOnBackground"
-                            android:fontFamily="sans-serif-medium" />
+                            android:text="@string/language_toggle"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnBackground"
+                        android:fontFamily="sans-serif-medium" />
 
                     </LinearLayout>
 
@@ -203,12 +203,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Notifications"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnBackground"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="sans-serif-medium" />
+                    android:text="@string/notifications"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnBackground"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-medium" />
 
                 <!-- Workout Reminders -->
                 <LinearLayout
@@ -239,23 +239,23 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Workout Reminders"
-                            android:textSize="16sp"
-                            android:textColor="?attr/colorOnBackground"
-                            android:fontFamily="sans-serif-medium" />
+                            android:text="@string/workout_reminders"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnBackground"
+                        android:fontFamily="sans-serif-medium" />
 
                         <TextView
                             android:id="@+id/tv_notification_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Notification Time: 08:00"
-                            android:textSize="16sp"
-                            android:textColor="?attr/colorOnBackground"
-                            android:layout_marginTop="8dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:background="?attr/selectableItemBackground"
-                            android:padding="8dp" />
+                            tools:text="Notification Time: 08:00"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnBackground"
+                        android:layout_marginTop="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:padding="8dp" />
 
                     </LinearLayout>
 
@@ -296,10 +296,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Progress Updates"
-                            android:textSize="16sp"
-                            android:textColor="?attr/colorOnBackground"
-                            android:fontFamily="sans-serif-medium" />
+                            android:text="@string/progress_updates"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnBackground"
+                        android:fontFamily="sans-serif-medium" />
 
                     </LinearLayout>
 
@@ -319,8 +319,3 @@
     </LinearLayout>
 
 </ScrollView>
-
-
-
-
-
