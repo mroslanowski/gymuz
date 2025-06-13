@@ -18,5 +18,5 @@ import androidx.room.PrimaryKey
 data class WorkoutPlan(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val userId: Int,
-    val name: String = "My Workout Plan"
+    val name: String = "My Workout com.example.gymuz.fragments.Plan"
 )

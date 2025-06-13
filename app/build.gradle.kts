@@ -49,6 +49,10 @@ android {
 
 dependencies {
 
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("com.google.zxing:core:3.4.1")
+    implementation(libs.zxing.android.embedded)
     implementation(libs.itext7.core)
     implementation(libs.kernel)
     implementation(libs.layout)
@@ -78,4 +82,12 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation ("org.robolectric:robolectric:4.10.3")
+    testImplementation ("org.mockito:mockito-core:4.11.0")
+    testImplementation ("org.mockito:mockito-inline:4.11.0")
+    testImplementation ("androidx.test:core:1.5.0")
+    testImplementation ("androidx.test.ext:junit:1.1.5")
+    testImplementation ("androidx.fragment:fragment-testing:1.6.1")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
 }

@@ -85,7 +85,7 @@ class PdfGenerator : Fragment() {
                         val pdfDocument = PdfDocument(pdfWriter)
                         val document = Document(pdfDocument)
 
-                        document.add(Paragraph("Plan treningowy"))
+                        document.add(Paragraph("com.example.gymuz.fragments.Plan treningowy"))
 
                         val workoutDays = repository.getWorkoutDays(plan.id)
                         for (day in workoutDays) {

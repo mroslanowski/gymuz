@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic App Strings -->
+    <string name="app_name">GymUZ</string>
+    <string name="open_nav">Otwórz panel nawigacji</string>
+    <string name="close_nav">Zamknij panel nawigacji</string>
+    <string name="hello_blank_fragment">Witaj, pusty fragmencie</string>
+
+    <!-- Settings Screen translations -->
+    <string name="settings">Ustawienia</string>
+    <string name="appearance">Wygląd</string>
+    <string name="dark_mode">Tryb ciemny</string>
+    <string name="language">Język</string>
+    <string name="language_toggle">Polski / Angielski</string>
+    <string name="notifications">Powiadomienia</string>
+    <string name="workout_reminders">Przypomnienia o treningu</string>
+    <string name="progress_updates">Aktualizacje postępów</string>
+    <string name="notification_time_format" formatted="false">Czas powiadomień: %02d:%02d</string>
+</resources>

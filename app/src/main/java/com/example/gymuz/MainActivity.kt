@@ -6,13 +6,12 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.gymuz.database.AppDatabase
+import com.example.gymuz.fragments.Plan
 import com.example.gymuz.login.Account
 import com.example.gymuz.login.LoginActivity
 import com.example.gymuz.login.UserPreferences
@@ -23,7 +22,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+// Key Change #1: Inherit from your new BaseActivity instead of AppCompatActivity
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navigationView: NavigationView
@@ -31,22 +32,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var userPreferences: UserPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Wczytaj zapisany tryb przed super.onCreate()
-        val sharedPrefs = getSharedPreferences("AppSettings", MODE_PRIVATE)
-        val isDarkMode = sharedPrefs.getBoolean("dark_mode", false)
-
-        AppCompatDelegate.setDefaultNightMode(
-            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
-            else AppCompatDelegate.MODE_NIGHT_NO
-        )
-
+        // The BaseActivity handles theme and language setup BEFORE this call.
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize UserPreferences
-        userPreferences = UserPreferences(this)
+        // Key Change #2: The entire block for setting language and dark mode
+        // has been removed from here. It is now handled by BaseActivity.
 
-        // Initialize AppDatabase
+        userPreferences = UserPreferences(this)
         db = AppDatabase.getDatabase(this)
 
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -65,17 +58,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, Create_Plan()).commit()
-            navigationView.setCheckedItem(R.id.bottom_home)
+            // Make sure the ID R.id.bottom_home exists in your menu resources.
+            // If Create_Plan() is the home fragment, you might want to check the bottom_nav item.
+            // bottomNavigationView.selectedItemId = R.id.bottom_home
         }
 
         bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.bottom_home -> replaceFragment(Create_Plan())
-                R.id.bottom_create_plan -> replaceFragment(Plan())
-                R.id.nav_gym_map -> replaceFragment(GymMap())
-                R.id.bottom_progress -> replaceFragment(Progress()) // Nowy fragment
-                R.id.bottom_account -> replaceFragment(Account())
+            val fragment = when (item.itemId) {
+                R.id.bottom_home -> Create_Plan()
+                R.id.bottom_create_plan -> Plan()
+                R.id.nav_gym_map -> GymMap() // This ID seems to be from the side nav, ensure it's correct for bottom nav
+                R.id.bottom_progress -> Progress()
+                R.id.bottom_account -> Account()
+                else -> null
             }
+            fragment?.let { replaceFragment(it) }
             true
         }
 
@@ -94,7 +91,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val user = db.userDao().getUserById(userId)
-
                         withContext(Dispatchers.Main) {
                             if (user != null) {
                                 nameTextView.text = user.name ?: "Użytkownik GymUZ"
@@ -102,20 +98,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                             }
                         }
                     } catch (e: Exception) {
-                        e.printStackTrace()
+                        // Fallback to SharedPreferences if DB fails
                         withContext(Dispatchers.Main) {
                             val email = userPreferences.getUserEmail() ?: "gymuz@uz.zgora.pl"
                             val name = userPreferences.getUserName() ?: "Użytkownik GymUZ"
-
                             nameTextView.text = name
                             emailTextView.text = email
                         }
                     }
                 }
             } else {
+                // Fallback for logged-in user with no valid ID
                 val email = userPreferences.getUserEmail() ?: "gymuz@uz.zgora.pl"
                 val name = userPreferences.getUserName() ?: "Użytkownik GymUZ"
-
                 nameTextView.text = name
                 emailTextView.text = email
             }
@@ -144,19 +139,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun logoutUser() {
         userPreferences.clearUserData()
 
-        val headerView = navigationView.getHeaderView(0)
-        val nameTextView = headerView.findViewById<TextView>(R.id.nameTextView)
-        val emailTextView = headerView.findViewById<TextView>(R.id.emailTextView)
-
-        nameTextView.text = "Average GymUZApp Enjoyer"
-        emailTextView.text = "GymUZ@uz.zgora.pl"
-
-        Toast.makeText(this, "Wylogowano!", Toast.LENGTH_SHORT).show()
-
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-        finish()
+        finish() // finish MainActivity so the user cannot press back to return
+        Toast.makeText(this, "Wylogowano!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {
@@ -165,11 +152,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            onBackPressedDispatcher.onBackPressed()
+            super.onBackPressed()
         }
     }
 }
