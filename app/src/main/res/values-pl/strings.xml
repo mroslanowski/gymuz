@@ -10,7 +10,7 @@
     <string name="appearance">Wygląd</string>
     <string name="dark_mode">Tryb ciemny</string>
     <string name="language">Język</string>
-    <string name="language_toggle">Polski / Angielski</string>
+    <string name="language_toggle">Angielski / Polski</string>
     <string name="notifications">Powiadomienia</string>
     <string name="workout_reminders">Przypomnienia o treningu</string>
     <string name="progress_updates">Aktualizacje postępów</string>
@@ -106,6 +106,12 @@
     <string name="button_pick_gallery">Wybierz z galerii</string>
     <string name="dialog_add_weight_entry_title">Dodaj wpis wagi</string>
     <string name="hint_notes_optional">Notatki (opcjonalnie)</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_channel_name">Przypomnienia o treningu</string>
+    <string name="notification_channel_description">Kanał dla codziennych przypomnień o treningu</string>
+    <string name="notification_title">Czas na trening!</string>
+    <string name="notification_text">Nie zapomnij zrealizować dzisiejszego planu treningowego.</string>
 
     <!-- Other -->
     <string name="label_progress_photo_preview">Podgląd zdjęcia postępów</string>

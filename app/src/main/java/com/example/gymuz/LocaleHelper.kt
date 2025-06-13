@@ -1,4 +1,3 @@
-// file: com/example/gymuz/LocaleHelper.kt
 package com.example.gymuz
 
 import android.content.Context
@@ -12,6 +11,12 @@ object LocaleHelper {
         val lang = getPersistedLanguage(context)
         return setLocale(context, lang)
     }
+
+
+    fun getLanguage(context: Context): String {
+        return getPersistedLanguage(context)
+    }
+    // ------------------------------------
 
     fun setLocale(context: Context, language: String): Context {
         persistLanguage(context, language)

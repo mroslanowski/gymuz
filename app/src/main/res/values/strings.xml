@@ -11,7 +11,7 @@
     <string name="appearance">Appearance</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="language">Language</string>
-    <string name="language_toggle">Polish / English</string>
+    <string name="language_toggle">English / Polish</string>
     <string name="notifications">Notifications</string>
     <string name="workout_reminders">Workout Reminders</string>
     <string name="progress_updates">Progress Updates</string>
@@ -107,6 +107,12 @@
     <string name="button_pick_gallery">Pick from Gallery</string>
     <string name="dialog_add_weight_entry_title">Add Weight Entry</string>
     <string name="hint_notes_optional">Notes (optional)</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_channel_name">Workout Reminders</string>
+    <string name="notification_channel_description">Channel for daily workout reminders</string>
+    <string name="notification_title">Time for a Workout!</string>
+    <string name="notification_text">Don\'t forget to complete your training plan today.</string>
 
     <!-- Other -->
     <string name="label_progress_photo_preview">Progress photo preview</string>
