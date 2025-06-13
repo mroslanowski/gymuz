@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
@@ -24,7 +25,7 @@
                 android:id="@+id/tvExerciseName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bench Press"
+                tools:text="Bench Press"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#000000" />
@@ -38,7 +39,7 @@
                     android:id="@+id/tvWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="80.0 kg"
+                    tools:text="80.0 kg"
                     android:textSize="14sp"
                     android:textColor="@color/main_color"
                     android:textStyle="bold" />
@@ -54,7 +55,7 @@
                     android:id="@+id/tvSetsReps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4 sets × 10 reps"
+                    tools:text="4 sets × 10 reps"
                     android:textSize="14sp"
                     android:textColor="#666666" />
             </LinearLayout>
@@ -63,7 +64,7 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2024-01-15"
+                tools:text="2024-01-15"
                 android:textSize="12sp"
                 android:textColor="#666666" />
 
@@ -71,7 +72,7 @@
                 android:id="@+id/tvNotes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Good session"
+                tools:text="Good session"
                 android:textSize="12sp"
                 android:textColor="#666666"
                 android:visibility="gone" />
@@ -83,6 +84,6 @@
             android:layout_height="32dp"
             android:src="@drawable/ic_delete"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Delete progress" />
+            android:contentDescription="@string/cd_delete_progress" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

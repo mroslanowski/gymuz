@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.gymuz.BaseActivity
 import com.example.gymuz.R
 import com.example.gymuz.database.AppDatabase
 import com.example.gymuz.database.entity.User
@@ -15,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : BaseActivity() {
     private lateinit var userDao: UserDao
     private lateinit var userPreferences: UserPreferences
 

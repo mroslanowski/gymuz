@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".QR_Code">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QR Code Fragment"
+        android:text="@string/label_qr_code_fragment"
         android:textSize="30sp"
         android:layout_centerInParent="true"
         android:textColor="@color/main_color"/>

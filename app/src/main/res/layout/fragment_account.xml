@@ -34,7 +34,7 @@
                 android:textSize="28sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="My Account"
+                android:text="@string/account_title"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnBackground"
                 android:textStyle="bold"/>
@@ -62,7 +62,7 @@
                     android:id="@+id/hintName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name:"
+                    android:text="@string/label_name"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -72,7 +72,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Jan Kowalski"
+                    tools:text="Jan Kowalski"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/hintName"
@@ -84,7 +84,7 @@
                     android:id="@+id/hintEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email:"
+                    android:text="@string/label_email"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/hintName"
@@ -95,7 +95,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="jan.kowalski@example.com"
+                    tools:text="jan.kowalski@example.com"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/hintEmail"
@@ -107,7 +107,7 @@
                     android:id="@+id/hintPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Password:"
+                    android:text="@string/label_password"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/hintEmail"
@@ -130,7 +130,7 @@
                     android:id="@+id/hintSex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gender:"
+                    android:text="@string/label_gender"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/hintPassword"
@@ -141,7 +141,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Male"
+                    tools:text="Male"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/hintSex"
@@ -153,17 +153,13 @@
                     android:id="@+id/editButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit"
+                    android:text="@string/button_edit"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     app:layout_constraintTop_toBottomOf="@id/hintSex"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="24dp"
                     android:textColor="?attr/colorOnBackground"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
     </LinearLayout>
-
 </ScrollView>

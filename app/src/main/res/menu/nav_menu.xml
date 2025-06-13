@@ -9,13 +9,13 @@
             android:id="@+id/nav_pdf_generator"
             android:icon="@drawable/picture_as_pdf_48px"
             android:iconTint="?attr/colorPrimary"
-            android:title="PDF Generator" />
+            android:title="@string/menu_pdf_generator" />
 
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings_48px"
             android:iconTint="?attr/colorPrimary"
-            android:title="Settings" />
+            android:title="@string/settings" />
     </group>
 
     <item android:title="">
@@ -24,7 +24,7 @@
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/logout_48px"
                 android:iconTint="?attr/colorPrimary"
-                android:title="Logout"/>
+                android:title="@string/menu_logout"/>
         </menu>
     </item>
 </menu>

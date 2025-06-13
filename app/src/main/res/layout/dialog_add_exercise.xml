@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add an exercise"
+            android:text="@string/dialog_add_exercise_title"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/main_color"
@@ -27,13 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:hint="@string/hint_exercise_name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etExerciseName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Exercise name"
                 android:inputType="text"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -49,15 +47,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
+                android:hint="@string/hint_sets"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etSets"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Sets"
-                    android:inputType="number"
-                    android:text="3"/>
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -65,15 +62,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
+                android:hint="@string/hint_reps"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etReps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Reps"
-                    android:inputType="number"
-                    android:text="10"/>
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -81,15 +77,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
+            android:hint="@string/hint_weight_kg"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Weight (kg)"
-                android:inputType="numberDecimal"
-                android:text="20.0"/>
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -102,7 +97,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cancel"
+                android:text="@string/button_cancel"
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
@@ -111,7 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add"
+                android:text="@string/button_add"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
     </LinearLayout>
