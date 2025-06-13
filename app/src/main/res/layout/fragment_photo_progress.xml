@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Add Photo Button -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +24,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Progress Photos"
+                android:text="@string/label_progress_photos"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -33,12 +32,11 @@
                 android:id="@+id/btnAddPhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Photo"
+                android:text="@string/button_add_photo"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Photos Grid -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProgressPhotos"
         android:layout_width="match_parent"

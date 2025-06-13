@@ -14,8 +14,9 @@ import com.example.gymuz.database.dao.UserDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.example.gymuz.BaseActivity
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
     private lateinit var userPreferences: UserPreferences
     private lateinit var userDao: UserDao
 

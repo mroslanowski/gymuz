@@ -22,7 +22,7 @@
             android:layout_height="48dp"
             android:src="@drawable/ic_arrow_left"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Previous Day"
+            android:contentDescription="@string/label_previous_day"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -41,7 +41,7 @@
                 android:id="@+id/tvDayName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Monday"
+                tools:text="Monday"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white" />
@@ -50,7 +50,7 @@
                 android:id="@+id/etDayName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Custom day name (optional)"
+                android:hint="@string/hint_custom_day_name"
                 android:textSize="14sp"
                 android:textColor="@android:color/white"
                 android:textColorHint="#80FFFFFF"
@@ -65,7 +65,7 @@
             android:layout_height="48dp"
             android:src="@drawable/ic_arrow_right"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Next Day"
+            android:contentDescription="@string/label_next_day"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -90,6 +90,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/dayNavigationLayout"
         app:layout_constraintBottom_toTopOf="@id/addExerciseLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,12 +101,12 @@
             android:layout_height="80dp"
             android:src="@drawable/ic_fitness"
             android:alpha="0.5"
-            android:contentDescription="No exercises" />
+            android:contentDescription="@string/label_no_exercises" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No exercises for this day"
+            android:text="@string/label_no_exercises"
             android:textSize="16sp"
             android:textStyle="italic"
             android:layout_marginTop="8dp" />
@@ -114,7 +115,7 @@
             android:id="@+id/btnAddFirstExercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Your First Exercise"
+            android:text="@string/button_add_first_exercise"
             android:layout_marginTop="16dp" />
     </LinearLayout>
 
@@ -142,13 +143,11 @@
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Exercise"
+            android:text="@string/label_add_exercise"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
