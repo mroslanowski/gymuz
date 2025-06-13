@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
@@ -24,7 +25,7 @@
                 android:id="@+id/tvWeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="75.5 kg"
+                tools:text="75.5 kg"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -32,7 +33,7 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2024-01-15"
+                tools:text="2024-01-15"
                 android:textSize="14sp"
                 android:textColor="#666666" />
 
@@ -40,10 +41,11 @@
                 android:id="@+id/tvNotes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Morning weight"
+                tools:text="Morning weight"
                 android:textSize="12sp"
                 android:textColor="#666666"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:visibility="visible" />
         </LinearLayout>
 
         <ImageButton
@@ -52,6 +54,6 @@
             android:layout_height="32dp"
             android:src="@drawable/ic_delete"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Delete entry" />
+            android:contentDescription="@string/cd_delete_entry" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

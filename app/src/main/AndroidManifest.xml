@@ -11,11 +11,20 @@
     <!-- Potrzebne do odczytu i zapisu plików PDF -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29" />
+        android:maxSdkVersion="29"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <!-- Potrzebne do robienia zdjęć -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 1. PERMISSION to post notifications (for Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- 2. PERMISSION to set exact alarms (often needed by AlarmManager) -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <!-- 3. PERMISSION to run on boot to re-schedule alarms -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!-- Deklaracja używania kamery -->
     <uses-feature
@@ -34,7 +43,10 @@
         android:theme="@style/Theme.NavigationDrawer"
         tools:targetApi="31">
 
-        <receiver android:name=".NotificationReceiver" />
+        <receiver
+            android:name=".NotificationReceiver"
+            android:enabled="true"
+            android:exported="false" />
 
         <!-- FileProvider for sharing photos -->
         <provider

@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Weight Entry"
+        android:text="@string/dialog_add_weight_entry_title"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/main_color"
@@ -18,13 +18,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:hint="@string/hint_weight_kg"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Weight (kg)"
             android:inputType="numberDecimal"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -33,13 +33,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
+        android:hint="@string/hint_notes_optional"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etNotes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Notes (optional)"
             android:inputType="text"
             android:maxLines="3" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -54,7 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel"
+            android:text="@string/button_cancel"
             android:layout_marginEnd="8dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save"
+            android:text="@string/button_save"
             android:layout_marginStart="8dp" />
     </LinearLayout>
 </LinearLayout>

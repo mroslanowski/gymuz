@@ -1,19 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Basic App Strings -->
-    <string name="app_name">GymUZ</string>
     <string name="open_nav">Otwórz panel nawigacji</string>
     <string name="close_nav">Zamknij panel nawigacji</string>
     <string name="hello_blank_fragment">Witaj, pusty fragmencie</string>
 
-    <!-- Settings Screen translations -->
+    <!-- Settings Screen -->
     <string name="settings">Ustawienia</string>
     <string name="appearance">Wygląd</string>
     <string name="dark_mode">Tryb ciemny</string>
     <string name="language">Język</string>
-    <string name="language_toggle">Polski / Angielski</string>
+    <string name="language_toggle">Angielski / Polski</string>
     <string name="notifications">Powiadomienia</string>
     <string name="workout_reminders">Przypomnienia o treningu</string>
     <string name="progress_updates">Aktualizacje postępów</string>
     <string name="notification_time_format" formatted="false">Czas powiadomień: %02d:%02d</string>
+
+    <!-- Menus -->
+    <string name="menu_home">Główna</string>
+    <string name="menu_create_plan">Stwórz Plan</string>
+    <string name="menu_gym_map">Mapa Siłowni</string>
+    <string name="menu_progress">Postępy</string>
+    <string name="menu_account">Konto</string>
+    <string name="menu_pdf_generator">Generator PDF</string>
+    <string name="menu_logout">Wyloguj</string>
+
+    <!-- Login & Register Screens -->
+    <string name="login_title">Logowanie</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Hasło</string>
+    <string name="button_login">Zaloguj</string>
+    <string name="prompt_no_account">Nie masz jeszcze konta?</string>
+    <string name="button_sign_up">Zarejestruj się</string>
+    <string name="link_forgot_password">Nie pamiętasz hasła?</string>
+    <string name="register_title">Rejestracja</string>
+    <string name="hint_name">Imię</string>
+    <string name="hint_confirm_password">Potwierdź hasło</string>
+    <string name="prompt_already_registered">Masz już konto?</string>
+
+    <!-- Account Screens -->
+    <string name="account_title">Moje Konto</string>
+    <string name="label_name">Imię:</string>
+    <string name="label_email">Email:</string>
+    <string name="label_password">Hasło:</string>
+    <string name="label_gender">Płeć:</string>
+    <string name="button_edit">Edytuj</string>
+    <string name="edit_account_title">Edytuj Dane Konta</string>
+    <string name="hint_sex">Płeć</string>
+    <string name="button_cancel">Anuluj</string>
+    <string name="button_save">Zapisz</string>
+
+    <!-- Create Plan & Exercise -->
+    <string name="dialog_add_exercise_title">Dodaj ćwiczenie</string>
+    <string name="hint_exercise_name">Nazwa ćwiczenia</string>
+    <string name="hint_sets">Serie</string>
+    <string name="hint_reps">Powtórzenia</string>
+    <string name="hint_weight_kg">Waga (kg)</string>
+    <string name="button_add">Dodaj</string>
+    <string name="label_previous_day">Poprzedni dzień</string>
+    <string name="label_next_day">Następny dzień</string>
+    <string name="hint_custom_day_name">Własna nazwa dnia (opcjonalnie)</string>
+    <string name="label_no_exercises">Brak ćwiczeń na ten dzień</string>
+    <string name="button_add_first_exercise">Dodaj swoje pierwsze ćwiczenie</string>
+    <string name="label_add_exercise">Dodaj Ćwiczenie</string>
+    <string name="cd_delete_exercise">Usuń ćwiczenie</string>
+    <string name="cd_decrease_sets">Zmniejsz liczbę serii</string>
+    <string name="cd_increase_sets">Zwiększ liczbę serii</string>
+    <string name="cd_decrease_reps">Zmniejsz liczbę powtórzeń</string>
+    <string name="cd_increase_reps">Zwiększ liczbę powtórzeń</string>
+    <string name="cd_decrease_weight">Zmniejsz ciężar</string>
+    <string name="cd_increase_weight">Zwiększ ciężar</string>
+    <string name="label_sets">Serie</string>
+    <string name="label_reps">Powtórzenia</string>
+    <string name="label_weight_kg">Waga (kg)</string>
+
+    <!-- Progress & Tracking -->
+    <string name="label_select_exercise">Wybierz ćwiczenie</string>
+    <string name="label_exercise_progress">Postęp w ćwiczeniu</string>
+    <string name="label_recent_progress">Ostatnie postępy</string>
+    <string name="label_home_fragment">Fragment główny</string>
+    <string name="progress_tracking_title">Śledzenie Postępów</string>
+    <string name="cd_add_progress">Dodaj Postęp</string>
+    <string name="cd_delete_progress">Usuń postęp</string>
+    <string name="label_progress_photos">Zdjęcia Postępów</string>
+    <string name="button_add_photo">Dodaj Zdjęcie</string>
+    <string name="label_current_weight">Aktualna Waga</string>
+    <string name="button_add_entry">Dodaj Wpis</string>
+    <string name="label_weight_progress_chart">Postęp Wagi (ostatnie 30 dni)</string>
+    <string name="label_recent_entries">Ostatnie Wpisy</string>
+    <string name="cd_delete_entry">Usuń wpis</string>
+
+    <!-- PDF & QR Code -->
+    <string name="button_generate_pdf">Generuj PDF</string>
+    <string name="button_scan_qr">Skanuj kod QR</string>
+    <string name="label_qr_code_fragment">Fragment Kodu QR</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_add_progress_photo_title">Dodaj zdjęcie postępów</string>
+    <string name="label_photo_type">Typ zdjęcia</string>
+    <string name="radio_before">Przed</string>
+    <string name="radio_during">W trakcie</string>
+    <string name="radio_after">Po</string>
+    <string name="hint_description_optional">Opis (opcjonalnie)</string>
+    <string name="button_take_photo">Zrób zdjęcie</string>
+    <string name="button_pick_gallery">Wybierz z galerii</string>
+    <string name="dialog_add_weight_entry_title">Dodaj wpis wagi</string>
+    <string name="hint_notes_optional">Notatki (opcjonalnie)</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_channel_name">Przypomnienia o treningu</string>
+    <string name="notification_channel_description">Kanał dla codziennych przypomnień o treningu</string>
+    <string name="notification_title">Czas na trening!</string>
+    <string name="notification_text">Nie zapomnij zrealizować dzisiejszego planu treningowego.</string>
+
+    <!-- Other -->
+    <string name="label_progress_photo_preview">Podgląd zdjęcia postępów</string>
+    <string name="default_user_name">Przeciętny fan GymUZApp</string>
+    <string name="default_user_email">GymUZ@uz.zgora.pl</string>
 </resources>

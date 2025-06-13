@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Account Details"
+        android:text="@string/edit_account_title"
         android:textSize="30sp"
         android:textColor="@color/main_color"
         android:textStyle="bold"
@@ -33,13 +33,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:hint="@string/hint_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
                     android:inputType="text"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -48,13 +48,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:hint="@string/hint_email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -63,6 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:hint="@string/hint_password"
                 app:passwordToggleEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -70,7 +71,6 @@
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
                     android:inputType="textPassword"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -78,13 +78,13 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/hint_sex"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etSex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Sex"
                     android:inputType="text"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -101,7 +101,7 @@
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/button_cancel"
             android:layout_marginEnd="8dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
@@ -109,7 +109,7 @@
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="@string/button_save"
             android:layout_marginStart="8dp"/>
     </LinearLayout>
 </LinearLayout>

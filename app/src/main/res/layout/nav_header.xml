@@ -2,6 +2,7 @@
 <LinearLayout
     android:id="@+id/nav_header"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="200dp"
@@ -21,7 +22,8 @@
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Average GymUZApp Enjoyer"
+        tools:text="Jan Kowalski"
+        android:text="@string/default_user_name"
         android:textColor="@color/white"
         android:textStyle="bold"/>
 
@@ -29,11 +31,10 @@
         android:id="@+id/emailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GymUZ@uz.zgora.pl"
+        tools:text="jan.kowalski@example.com"
+        android:text="@string/default_user_email"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:layout_marginBottom="2dp"
-        android:layout_gravity="bottom"
-        />
-
+        android:layout_gravity="bottom" />
 </LinearLayout>

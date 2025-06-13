@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -10,7 +11,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Current Weight Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Current Weight"
+                        android:text="@string/label_current_weight"
                         android:textSize="14sp"
                         android:textColor="#666666" />
 
@@ -42,7 +42,7 @@
                         android:id="@+id/tvCurrentWeight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-- kg"
+                        tools:text="75.5 kg"
                         android:textSize="28sp"
                         android:textStyle="bold"
                         android:textColor="@color/main_color" />
@@ -52,12 +52,11 @@
                     android:id="@+id/btnAddWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add Entry"
+                    android:text="@string/button_add_entry"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Weight Chart Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -74,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Weight Progress (Last 30 days)"
+                    android:text="@string/label_weight_progress_chart"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp" />
@@ -88,7 +87,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Recent Entries -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,7 +102,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recent Entries"
+                    android:text="@string/label_recent_entries"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp" />
